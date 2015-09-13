@@ -12,13 +12,11 @@ import pyglet
 @click.command()
 @click.option('--package', help='Repo of sounds')
 def tell_hour(package):
-    files = os.listdir(os.path.dirname(package))
+    package = os.path.abspath(package)
+    files = os.listdir(package)
     hour = datetime.datetime.now().hour
-    package = os.path.abspath(os.path.dirname(package))
-
     hour_file = [file for file in files if str(hour) == file.split('.')[0]][0]
     prefix_file = 'past.mp3'
-
     pyglet.resource.path = [package]
     pyglet.resource.reindex()
     player = pyglet.media.Player()
